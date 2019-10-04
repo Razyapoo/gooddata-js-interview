@@ -4,21 +4,24 @@ import React, { Component } from 'react';
 import '@gooddata/react-components/styles/css/main.css';
 
 import { ColumnChart } from '@gooddata/react-components';
-
 const grossProfitMeasure = '/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/6877';
 const dateAttributeInMonths = '/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2142';
 const dateAttribute = '/gdc/md/xms7ga4tf3g3nzucd8380o2bev8oeknp/obj/2180';
 
 class App extends Component {
+    state = {
+        selectedMonth: '1'
+    };
 
-    getMonthFilter() {
+    getMonthFilter(month_num) {
+        if(typeof month_num == "undefined") {month_num="01";};
         return {
             absoluteDateFilter: {
                 dataSet: {
                     uri: dateAttribute
                 },
-                from: '2016-01-01',
-                to: '2016-01-31'
+                from: '2016-'+month_num+'-01',
+                to: '2016-'+month_num+'-31'
             }
 
         }
@@ -56,7 +59,8 @@ class App extends Component {
 
     renderDropdown() {
         return (
-            <select defaultValue="1">
+            <select defaultValue="1" 
+            onChange= { (e) => {this.setState({selectedMonth: e.target.value})} }>
                 <option value="1">January</option>
                 <option value="2">February</option>
                 <option value="3">March</option>
@@ -75,7 +79,9 @@ class App extends Component {
 
     render() {
         const projectId = 'xms7ga4tf3g3nzucd8380o2bev8oeknp';
-        const filters = [this.getMonthFilter()];
+        //alert(mes_num);
+        var selected_month = this.state.selectedMonth;
+        const filters = [this.getMonthFilter(selected_month)];
         const measures = this.getMeasures();
         const viewBy = this.getViewBy();
 
@@ -99,7 +105,9 @@ class App extends Component {
                 </div>
             </div>
         );
+        
     }
 }
+
 
 export default App;
