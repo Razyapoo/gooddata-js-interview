@@ -3,10 +3,6 @@ Frontend Interview Examples
 
 ## GoodData Homework
 
-### Introduction
-
-Your task is to enhance the application using the [GoodData.UI](https://sdk.gooddata.com/gooddata-ui/).
-
 ### Prerequisites
 
 To successfully complete this tutorial, you are required to:
